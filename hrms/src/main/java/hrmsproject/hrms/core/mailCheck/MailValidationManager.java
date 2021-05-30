@@ -1,10 +1,13 @@
 package hrmsproject.hrms.core.mailCheck;
 
+import hrmsproject.hrms.core.utilities.result.concretes.Result;
+import hrmsproject.hrms.core.utilities.result.concretes.SuccessResult;
+
 public class MailValidationManager {
 	
-	public static void sendMail(String eMail) {
+	public static Result sendMail(String eMail) {
 		
-		System.out.println(eMail + " " + "Adresine Mail Doğrulama Linki Gönderilmiştir.");		
+		return new SuccessResult(eMail + " " + "Adresine Mail Doğrulama Linki Gönderilmiştir.");		
 	}
 
 }

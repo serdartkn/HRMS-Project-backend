@@ -4,11 +4,10 @@ import java.util.List;
 
 import hrmsproject.hrms.core.utilities.result.concretes.DataResult;
 import hrmsproject.hrms.core.utilities.result.concretes.Result;
-import hrmsproject.hrms.entities.concretes.Position;
+import hrmsproject.hrms.entities.concretes.Employee;
 
-public interface PositionService {
-	
-	Result add(Position position);	
-	DataResult<List<Position>> getAll();
-	Boolean existsByName(String name);
+public interface EmployeeService {
+
+	Result add(Employee employee);
+	DataResult<List<Employee>> getAll();
 }
