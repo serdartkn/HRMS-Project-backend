@@ -17,28 +17,23 @@ import lombok.NonNull;
 @Table(name="job_seekers")
 @Data
 @EqualsAndHashCode(callSuper = false)
-@PrimaryKeyJoinColumn(name="id", referencedColumnName = "id")
 @AllArgsConstructor
 @NoArgsConstructor
 public class JobSeeker extends User{
 			
-	@NonNull
 	@Column(name="first_name")
 	private String firstName;
 	
-	@NonNull
 	@Column(name="last_name")
 	private String lastName;
 	
-	@NonNull
 	@Column(name="nationality_id")
 	private String nationalityId;
 	
-	@NonNull
 	@Column(name="date_of_birth")
 	private LocalDate dateOfBirth;	
 
-	@Column(name="mail_is_verified", columnDefinition = "boolean default false")
+	@Column(name="mail_is_verified")
 	private Boolean mailIsVerified = false;
 	
 }

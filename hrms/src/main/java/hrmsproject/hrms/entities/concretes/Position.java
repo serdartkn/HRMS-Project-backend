@@ -24,7 +24,6 @@ public class Position {
 	@Column(name="id")
 	private int id;	
 	
-	@NonNull
 	@Column(name="name")
 	private String name;	
 	

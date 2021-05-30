@@ -14,14 +14,11 @@ import lombok.NonNull;
 @Data
 @Table(name = "employees")
 @EqualsAndHashCode(callSuper = false)
-@PrimaryKeyJoinColumn(name="id")
 public class Employee extends User{
 	
-	@NonNull
 	@Column(name="first_name")
 	private String firstName;
-	
-	@NonNull
+
 	@Column(name="last_name")
 	private String lastName;
 }
