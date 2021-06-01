@@ -16,6 +16,9 @@ public class Messages {
 	public static String addedPosition = "Position Added";
 	public static String listedPositions = "Positions Listed";
 	
+	public static String addedJobPosting = "Job Posting Added";
+	public static String listedJobPosting = "Job Posting Listed";
+	
 	public static String errorRegisteredMail = "This E-Mail Address Is Already Registered.";
 	public static String errorRegisteredNationalityId = "This Nationality ID Is Already registered.";
 	public static String errorRegisteredPosition = "This Position Name Is Already registered.";
