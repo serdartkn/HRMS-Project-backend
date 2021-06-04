@@ -1,5 +1,6 @@
 package hrmsproject.hrms.api.controller;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import hrmsproject.hrms.business.abstracts.JobSeekerService;
 import hrmsproject.hrms.core.utilities.result.concretes.DataResult;
 import hrmsproject.hrms.core.utilities.result.concretes.Result;
 import hrmsproject.hrms.entities.concretes.JobSeeker;
+import hrmsproject.hrms.entities.concretes.Position;
 
 
 @RestController
@@ -37,6 +39,18 @@ public class JobSeekersController {
 	public Result add (@RequestBody JobSeeker jobSeeker){
 		
 		return this.jobSeekerService.add(jobSeeker);		
+	}
+	
+	@PostMapping("update")
+	public Result update(String mail, String password, String firstName, String lastName,@RequestBody LocalDate dateofBirth, int id) {
+		
+		return this.jobSeekerService.updateJobSeeker(mail, password, firstName, lastName, dateofBirth, id);
+	}
+	
+	@PostMapping("delete")
+	public Result delete(JobSeeker jobSeeker) {
+		
+		return this.jobSeekerService.deleteJobSeeker(jobSeeker);
 	}
 
 }

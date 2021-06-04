@@ -13,6 +13,7 @@ import hrmsproject.hrms.business.abstracts.EmployeeService;
 import hrmsproject.hrms.core.utilities.result.concretes.DataResult;
 import hrmsproject.hrms.core.utilities.result.concretes.Result;
 import hrmsproject.hrms.entities.concretes.Employee;
+import hrmsproject.hrms.entities.concretes.Employer;
 
 @RestController
 @RequestMapping("/api/employees/")
@@ -36,6 +37,18 @@ public class EmployeesController {
 		
 		return this.employeeService.getAll();
 
+	}
+	
+	@PostMapping("update")
+	public Result update(String mail, String password, String firstName, String lastName, int id) {
+		
+		return this.employeeService.updateEmployee(mail, password, firstName, lastName, id);
+	}
+	
+	@PostMapping("delete")
+	public Result delete(Employee employee) {
+		
+		return this.employeeService.deleteEmployee(employee);
 	}
 
 }

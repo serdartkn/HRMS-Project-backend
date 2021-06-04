@@ -1,5 +1,6 @@
 package hrmsproject.hrms.business.concretes;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ import hrmsproject.hrms.core.utilities.result.concretes.SuccessDataResult;
 import hrmsproject.hrms.core.utilities.result.concretes.SuccessResult;
 import hrmsproject.hrms.dataAccess.abstracts.JobSeekerDao;
 import hrmsproject.hrms.entities.concretes.JobSeeker;
+import hrmsproject.hrms.entities.concretes.Position;
 
 
 @Service
@@ -105,5 +107,55 @@ public class JobSeekerManager implements JobSeekerService{
 			return true;			
 		}
 		return false;		
+	}
+
+
+	@Override
+	public Result updateJobSeeker(String mail, String password, String firstName, String lastName,
+			LocalDate dateOfBirth, int id) {
+		
+		if(Rules.checkMail(mail) && Rules.checkFirstName(firstName)&& Rules.checkLastName(lastName) &&  Rules.checkPassword(password)&&Rules.checkDateOfBirth(dateOfBirth)) {
+			
+			if(userService.existsByeMail(mail)!=true) {					
+				
+				this.jobSeekerDao.updatePosition(mail, password, firstName, lastName, dateOfBirth, id);
+				return new SuccessResult(Messages.updatedJobSeeker);
+			}
+			else {
+				
+				if (userService.existsByeMail(mail)) {
+					
+					return new ErrorResult(Messages.errorRegisteredMail);					
+				}			
+			}			
+		}
+		else {
+			
+			if (Rules.checkMail(mail)==false) {
+				
+				return new ErrorResult(Messages.errorMail);
+			}
+			else if (Rules.checkFirstName(firstName)==false || Rules.checkLastName(lastName)==false) {
+				
+				return new ErrorResult(Messages.errorFirstNameOrLastName);
+			}
+			else if (Rules.checkPassword(password)==false) {
+				
+				return new ErrorResult(Messages.errorPassword);
+			}
+			else if (Rules.checkDateOfBirth(dateOfBirth)==false) {
+				
+				return new ErrorResult(Messages.errorDateOfBirth);
+			}
+		}				
+		
+		return new ErrorResult(Messages.errorInformation);		
+	}
+
+
+	@Override
+	public Result deleteJobSeeker(JobSeeker jobSeeker) {
+		this.jobSeekerDao.delete(jobSeeker);
+		return new SuccessResult(Messages.deletedJobSeeker);
 	}	
 }

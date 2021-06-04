@@ -59,4 +59,35 @@ public class EmployeeManager implements EmployeeService{
 		return new SuccessDataResult<List<Employee>>(this.employeeDao.findAll(), Messages.listedEmployees);
 	}
 
+	@Override
+	public Result updateEmployee(String password, String email, String firstName, String lastName, int id) {
+		if (Rules.checkMail(email) && Rules.checkFirstName(firstName) && Rules.checkLastName(lastName) && Rules.checkPassword(password)) {
+			
+			this.employeeDao.updateEmployee(password, email, firstName, lastName, id);;
+			return new SuccessResult(Messages.updatedEmployee);			
+		}
+		else {
+			
+			if (Rules.checkMail(email)==false) {
+				
+				return new ErrorResult(Messages.errorMail);
+			}
+			else if (Rules.checkFirstName(firstName)==false || Rules.checkLastName(lastName)==false) {
+				
+				return new ErrorResult(Messages.errorFirstNameOrLastName);
+			}
+			else if (Rules.checkPassword(password)==false) {
+				
+				return new ErrorResult(Messages.errorPassword);
+			}			
+		}
+		return new ErrorResult(Messages.errorInformation);
+	}
+
+	@Override
+	public Result deleteEmployee(Employee employee) {
+		this.employeeDao.delete(employee);
+		return new SuccessResult(Messages.updatedEmployee);		
+	}
+
 }

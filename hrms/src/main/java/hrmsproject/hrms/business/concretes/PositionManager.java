@@ -20,12 +20,11 @@ import hrmsproject.hrms.entities.concretes.Position;
 public class PositionManager implements PositionService {
 
 	PositionDao positionDao;	
-	
 	@Autowired
 	public PositionManager(PositionDao positionDao) {
 		this.positionDao = positionDao;
 	}
-
+	
 	
 	@Override
 	public Result add(Position position) {
@@ -43,6 +42,7 @@ public class PositionManager implements PositionService {
 		}
 		return new ErrorResult(Messages.errorPositionName);
 	}
+	
 
 	@Override
 	public DataResult<List<Position>> getAll() {
@@ -61,6 +61,29 @@ public class PositionManager implements PositionService {
 		return false;
 		
 		
+	}	
+
+	@Override
+	public Result updatePosition(String name, int id) {
+		
+		if (Rules.checkPositionName(name) && existsByName(name)!=true) {
+			
+			this.positionDao.updatePosition(name,id);
+			return new SuccessResult(Messages.updatedPosition);
+		}
+		else {
+			if (existsByName(name)) {
+				
+				return new ErrorResult(Messages.errorRegisteredPosition);
+			}
+		}
+		return new ErrorResult(Messages.errorPositionName);
+	}
+
+	@Override
+	public Result deletePosition(Position position) {
+		this.positionDao.delete(position);
+		return new SuccessResult(Messages.deletedPosition);
 	}
 	
 }

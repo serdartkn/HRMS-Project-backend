@@ -10,4 +10,6 @@ public interface EmployeeService {
 
 	Result add(Employee employee);
 	DataResult<List<Employee>> getAll();
+	Result updateEmployee(String password, String email, String firstName, String lastName, int id);
+	Result deleteEmployee(Employee employee);
 }

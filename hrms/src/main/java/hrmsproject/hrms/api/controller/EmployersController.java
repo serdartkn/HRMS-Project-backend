@@ -1,5 +1,6 @@
 package hrmsproject.hrms.api.controller;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import hrmsproject.hrms.business.abstracts.EmployerService;
 import hrmsproject.hrms.core.utilities.result.concretes.DataResult;
 import hrmsproject.hrms.core.utilities.result.concretes.Result;
 import hrmsproject.hrms.entities.concretes.Employer;
+import hrmsproject.hrms.entities.concretes.JobSeeker;
 
 @RestController
 @RequestMapping("/api/employers/")
@@ -35,6 +37,18 @@ public class EmployersController {
 	public DataResult<List<Employer>> getAll() {
 		
 		return this.employersService.getAll();
+	}
+	
+	@PostMapping("update")
+	public Result update(String mail, String password, String companyName, String webSite, String phone, int id) {
+		
+		return this.employersService.updateEmployer(mail, password, companyName, webSite, phone, id);
+	}
+	
+	@PostMapping("delete")
+	public Result delete(Employer employer) {
+		
+		return this.employersService.deleteEmployer(employer);
 	}
 
 }

@@ -1,8 +1,13 @@
 package hrmsproject.hrms.business.businessRules;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import org.springframework.data.jpa.repository.Query;
+
+import hrmsproject.hrms.entities.concretes.JobPosting;
 
 public class Rules {
 	
@@ -50,7 +55,7 @@ public class Rules {
 	
 	public static boolean checkNationalityId(String nationalityId) {
 		
-		if (nationalityId.length()<11) {			
+		if (nationalityId.length()<11 || nationalityId.length()>11) {			
 			return false;
 		}else {
 			return true;
@@ -101,5 +106,8 @@ public class Rules {
 			return true;
 		}			
 	}
+	
+
+	
 
 }

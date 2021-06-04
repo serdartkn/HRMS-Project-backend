@@ -18,26 +18,40 @@ import hrmsproject.hrms.entities.concretes.Position;
 @RequestMapping("/api/positions/")
 public class PositionsController{
 	
-	PositionService positionsService;
+	PositionService positionService;
 	
 	@Autowired
 	public PositionsController(PositionService positionService) {
 		super();
-		this.positionsService = positionService;
+		this.positionService = positionService;
 	}
 	
 	@GetMapping("getall")
 	public DataResult<List<Position>>getAll(){
 		
-		return this.positionsService.getAll();	
+		return this.positionService.getAll();	
 		
 	}
 
 	@PostMapping("add")
 	public Result add(@RequestBody Position position) {
 		
-		return this.positionsService.add(position);
+		return this.positionService.add(position);
 	}
+	
+	@PostMapping("update")
+	public Result update(String name, int id) {
+		
+		return this.positionService.updatePosition(name,id);
+	}
+	
+	@PostMapping("delete")
+	public Result delete(Position position) {
+		
+		return this.positionService.deletePosition(position);
+	}
+	
+	
 	
 
 }
