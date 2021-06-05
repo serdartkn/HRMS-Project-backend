@@ -50,8 +50,4 @@ public class PositionsController{
 		
 		return this.positionService.deletePosition(position);
 	}
-	
-	
-	
-
 }

@@ -16,6 +16,6 @@ public interface JobSeekerDao extends JpaRepository<JobSeeker, Integer> {
 	@Modifying
     @Transactional
     @Query("update JobSeeker j set j.eMail=:mail, j.password=:password, j.firstName=:firstName, j.lastName=:lastName, j.dateOfBirth=:dateOfBirth where j.id=:id")
-    void updatePosition(String mail, String password, String firstName, String lastName, LocalDate dateOfBirth, int id);
+    void updateJobSeeker(String mail, String password, String firstName, String lastName, LocalDate dateOfBirth, int id);
 
 }

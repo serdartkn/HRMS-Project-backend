@@ -118,7 +118,7 @@ public class JobSeekerManager implements JobSeekerService{
 			
 			if(userService.existsByeMail(mail)!=true) {					
 				
-				this.jobSeekerDao.updatePosition(mail, password, firstName, lastName, dateOfBirth, id);
+				this.jobSeekerDao.updateJobSeeker(mail, password, firstName, lastName, dateOfBirth, id);
 				return new SuccessResult(Messages.updatedJobSeeker);
 			}
 			else {
