@@ -14,7 +14,6 @@ import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
 
 @Entity
 @Data
@@ -28,8 +27,12 @@ public class JobPosting {
 	@Column(name = "id")
 	private int id;
 
-	@Column(name = "job_position_id")
-	private int jobPositionId;
+//	@Column(name = "job_position_id")
+//	private int jobPositionId;
+	
+	@ManyToOne()
+	@JoinColumn(name = "job_position_id")
+	private Position position;
 	
 //	@Column(name = "employer_id")
 //	private int employerId;
@@ -41,9 +44,13 @@ public class JobPosting {
 	@Column(name = "desciription")
 	private String desciription;
 	
-	@Column(name = "city_id")
-	private int cityId;
+//	@Column(name = "city_id")
+//	private int cityId;
 	
+	@ManyToOne()
+	@JoinColumn(name = "city_id")
+	private City city;
+		
 	@Column(name = "min_salary")
 	private int minSalary;
 	
@@ -61,5 +68,4 @@ public class JobPosting {
 	
 	@Column(name = "release_date")
 	private LocalDate releaseDate = LocalDate.now();
-
 }

@@ -12,17 +12,13 @@ public class MernisServiceAdapter implements PersonCheckService{
 	@Override
 	public boolean ifCheckRealPerson(JobSeeker jobSeeker) {		
 			KPSPublicSoapProxy proxy = new KPSPublicSoapProxy();
-			boolean result = false;
-			
-			try 
-			{
+			boolean result = false;			
+			try {
 				result = proxy.TCKimlikNoDogrula(Long.parseLong(jobSeeker.getNationalityId()), jobSeeker.getFirstName().toUpperCase(), jobSeeker.getLastName().toUpperCase(), jobSeeker.getDateOfBirth().getYear());		
 			} 
-			catch (Exception e) 
-			{
+			catch (Exception e)	{
 				System.out.println("Not a valid person");
-			}
-			
+			}			
 			return result;
 	}
 }

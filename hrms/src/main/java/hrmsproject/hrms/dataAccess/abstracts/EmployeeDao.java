@@ -13,5 +13,4 @@ public interface EmployeeDao extends JpaRepository<Employee, Integer>{
     @Modifying
     @Query("update Employee e set e.password=:password, e.eMail=:email, e.firstName=:firstName, e.lastName=:lastName where e.id=:id")
     void updateEmployee(String password, String email, String firstName, String lastName, int id);
-
 }

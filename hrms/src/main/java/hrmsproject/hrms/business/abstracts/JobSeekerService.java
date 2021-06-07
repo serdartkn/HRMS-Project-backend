@@ -11,8 +11,12 @@ import hrmsproject.hrms.entities.concretes.Position;
 public interface JobSeekerService {
 	
 	Result add(JobSeeker jobSeeker);
+	
 	DataResult<List<JobSeeker>> getAll();
+	
 	Boolean existsByNationalityId(String eMail);
+	
 	Result updateJobSeeker(String mail, String password, String firstName, String lastName, LocalDate dateOfBirth, int id);
+	
 	Result deleteJobSeeker(JobSeeker jobSeeker);
 }

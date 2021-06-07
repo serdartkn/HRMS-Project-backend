@@ -20,64 +20,50 @@ import hrmsproject.hrms.entities.concretes.Employee;
 public class EmployeeManager implements EmployeeService{
 	
 	private EmployeeDao employeeDao;
-
 	@Autowired
 	public EmployeeManager(EmployeeDao employeeDao) {
 		this.employeeDao = employeeDao;
 	}
 
 	@Override
-	public Result add(Employee employee) {
-		
-		if (Rules.checkMail(employee.getEMail()) && Rules.checkFirstName(employee.getFirstName()) && Rules.checkLastName(employee.getLastName()) && Rules.checkPassword(employee.getPassword())) {
-			
+	public Result add(Employee employee) {		
+		if (Rules.checkMail(employee.getEMail()) && Rules.checkFirstName(employee.getFirstName()) && Rules.checkLastName(employee.getLastName()) && Rules.checkPassword(employee.getPassword())) {			
 			this.employeeDao.save(employee);
 			return new SuccessResult(Messages.addedEmployee);			
 		}
-		else {
-			
-			if (Rules.checkMail(employee.getEMail())==false) {
-				
+		else {			
+			if (Rules.checkMail(employee.getEMail())==false) {				
 				return new ErrorResult(Messages.errorMail);
 			}
 			else if (Rules.checkFirstName(employee.getFirstName())==false || Rules.checkLastName(employee.getLastName())==false) {
-				
 				return new ErrorResult(Messages.errorFirstNameOrLastName);
 			}
-			else if (Rules.checkPassword(employee.getPassword())==false) {
-				
+			else if (Rules.checkPassword(employee.getPassword())==false) {				
 				return new ErrorResult(Messages.errorPassword);
 			}			
 		}
 		return new ErrorResult(Messages.errorInformation);
-
 	}
 
 	@Override
-	public DataResult<List<Employee>> getAll() {
-		
+	public DataResult<List<Employee>> getAll() {		
 		return new SuccessDataResult<List<Employee>>(this.employeeDao.findAll(), Messages.listedEmployees);
 	}
 
 	@Override
 	public Result updateEmployee(String password, String email, String firstName, String lastName, int id) {
 		if (Rules.checkMail(email) && Rules.checkFirstName(firstName) && Rules.checkLastName(lastName) && Rules.checkPassword(password)) {
-			
 			this.employeeDao.updateEmployee(password, email, firstName, lastName, id);;
 			return new SuccessResult(Messages.updatedEmployee);			
 		}
-		else {
-			
-			if (Rules.checkMail(email)==false) {
-				
+		else {			
+			if (Rules.checkMail(email)==false) {				
 				return new ErrorResult(Messages.errorMail);
 			}
-			else if (Rules.checkFirstName(firstName)==false || Rules.checkLastName(lastName)==false) {
-				
+			else if (Rules.checkFirstName(firstName)==false || Rules.checkLastName(lastName)==false) {				
 				return new ErrorResult(Messages.errorFirstNameOrLastName);
 			}
-			else if (Rules.checkPassword(password)==false) {
-				
+			else if (Rules.checkPassword(password)==false) {				
 				return new ErrorResult(Messages.errorPassword);
 			}			
 		}
@@ -89,5 +75,4 @@ public class EmployeeManager implements EmployeeService{
 		this.employeeDao.delete(employee);
 		return new SuccessResult(Messages.updatedEmployee);		
 	}
-
 }

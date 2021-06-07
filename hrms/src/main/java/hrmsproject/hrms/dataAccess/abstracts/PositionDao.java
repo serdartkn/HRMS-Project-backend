@@ -14,6 +14,5 @@ public interface PositionDao extends JpaRepository<Position, Integer>{
 	@Modifying
     @Transactional
     @Query("update Position p set p.name=:name where p.id=:id")
-    void updatePosition(String name, int id);
-	
+    void updatePosition(String name, int id);	
 }

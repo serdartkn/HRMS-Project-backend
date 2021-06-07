@@ -15,49 +15,40 @@ import hrmsproject.hrms.core.utilities.result.concretes.SuccessDataResult;
 import hrmsproject.hrms.core.utilities.result.concretes.SuccessResult;
 import hrmsproject.hrms.dataAccess.abstracts.JobPostingDao;
 import hrmsproject.hrms.entities.concretes.JobPosting;
+import hrmsproject.hrms.entities.dtos.JobPostingDetailsDto;
 
 @Service
 public class JobPostingManager implements JobPostingService{
 	
-	JobPostingDao jobPostingDao;
-
+	private JobPostingDao jobPostingDao;
 	@Autowired
 	public JobPostingManager(JobPostingDao jobPostingDao) {
 		this.jobPostingDao = jobPostingDao;
 	}
 	
 	@Override
-	public Result add(JobPosting jobPosting) {
-		
-		this.jobPostingDao.save(jobPosting);
-		return new SuccessResult(Messages.addedJobPosting);		
-	}	
+	public DataResult<List<JobPostingDetailsDto>> findByAppDeadlineAfterAndIsActive() {
+		return new SuccessDataResult<List<JobPostingDetailsDto>>(this.jobPostingDao.findByAppDeadlineAfterAndIsActive(), Messages.listedJobPosting);
+	}
 	
 	@Override
-	public DataResult<List<JobPosting>> findAllSortedByDate() {
-		
-		LocalDate nowDate = LocalDate.now();
-		Sort sort = Sort.by(Sort.Direction.DESC,"releaseDate");
-		return new SuccessDataResult<List<JobPosting>>(this.jobPostingDao.findAllSortedByIsActiveAndAppDeadlineAfter(sort,true,nowDate), Messages.listedJobPosting);
+	public DataResult<List<JobPostingDetailsDto>> sortedAllJobPostingWithAppDeadLineIsActive() {		
+		return new SuccessDataResult<List<JobPostingDetailsDto>>(this.jobPostingDao.sortedAllJobPostingWithAppDeadLineIsActive(), Messages.listedJobPosting);
+	}	
+
+	@Override
+	public DataResult<List<JobPostingDetailsDto>> findAllJobPostingByEmployerId(int id) {		
+		return new SuccessDataResult<List<JobPostingDetailsDto>>(this.jobPostingDao.findAllJobPostingByEmployerId(id), Messages.listedJobPosting);
+	}
+	
+	@Override
+	public Result add(JobPosting jobPosting) {		
+		this.jobPostingDao.save(jobPosting);
+		return new SuccessResult(Messages.addedJobPosting);		
 	}
 
 	@Override
-	public DataResult<List<JobPosting>> findAllJobPostingByEmployerId(int employerId) {
-		
-		LocalDate nowDate = LocalDate.now();
-		return new SuccessDataResult<List<JobPosting>>(this.jobPostingDao.findAllByEmployer_IdAndIsActiveAndAppDeadlineAfter(employerId,true,nowDate), Messages.listedJobPosting);
-	}
-
-	@Override
-	public DataResult<List<JobPosting>> findAll() {
-
-		LocalDate nowDate = LocalDate.now();
-		return new SuccessDataResult<List<JobPosting>>(this.jobPostingDao.findByAppDeadlineAfterAndIsActive(nowDate, true), Messages.listedJobPosting);
-	}
-
-	@Override
-	public Result updateIsActive(int id) {
-		
+	public Result updateIsActive(int id) {		
 		this.jobPostingDao.updateIsActive(false,id);
 		return new SuccessResult(Messages.updatedJobPosting);		
 	}
@@ -73,4 +64,5 @@ public class JobPostingManager implements JobPostingService{
 		this.jobPostingDao.delete(jobPosting);
 		return new SuccessResult(Messages.deletedJobPosting);		
 	}
+	
 }

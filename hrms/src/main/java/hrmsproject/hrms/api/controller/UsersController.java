@@ -16,16 +16,13 @@ import hrmsproject.hrms.entities.concretes.User;
 public class UsersController {
 
 	private UserService userService;
-
 	@Autowired
 	public UsersController(UserService userService) {
 		this.userService = userService;
 	}
 	
 	@GetMapping("getall")
-	public DataResult<List<User>> getAll() {
-		
+	public DataResult<List<User>> getAll() {		
 		return this.userService.getAll();
 	}	
-	
 }

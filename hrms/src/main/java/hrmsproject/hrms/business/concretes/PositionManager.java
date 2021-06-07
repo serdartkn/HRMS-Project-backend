@@ -19,61 +19,47 @@ import hrmsproject.hrms.entities.concretes.Position;
 @Service
 public class PositionManager implements PositionService {
 
-	PositionDao positionDao;	
+	private PositionDao positionDao;	
 	@Autowired
 	public PositionManager(PositionDao positionDao) {
 		this.positionDao = positionDao;
-	}
-	
+	}	
 	
 	@Override
-	public Result add(Position position) {
-		
-		if (Rules.checkPositionName(position.getName()) && existsByName(position.getName())!=true) {
-			
+	public Result add(Position position) {		
+		if (Rules.checkPositionName(position.getName()) && existsByName(position.getName())!=true) {			
 			this.positionDao.save(position);
 			return new SuccessResult(Messages.addedPosition);
 		}
 		else {
-			if (existsByName(position.getName())) {
-				
+			if (existsByName(position.getName())) {				
 				return new ErrorResult(Messages.errorRegisteredPosition);
 			}
 		}
 		return new ErrorResult(Messages.errorPositionName);
-	}
-	
-
-	@Override
-	public DataResult<List<Position>> getAll() {
-		
-		return new SuccessDataResult<List<Position>>(this.positionDao.findAll(), "İş Posizyonları Listelendi"); 
-	}
-
-
-	@Override
-	public Boolean existsByName(String name) {
-		
-		if (this.positionDao.existsByName(name)) {
-			
-			return true;			
-		}
-		return false;
-		
-		
 	}	
 
 	@Override
-	public Result updatePosition(String name, int id) {
-		
-		if (Rules.checkPositionName(name) && existsByName(name)!=true) {
-			
+	public DataResult<List<Position>> getAll() {		
+		return new SuccessDataResult<List<Position>>(this.positionDao.findAll(), "İş Posizyonları Listelendi"); 
+	}
+
+	@Override
+	public Boolean existsByName(String name) {		
+		if (this.positionDao.existsByName(name)) {			
+			return true;			
+		}
+		return false;		
+	}	
+
+	@Override
+	public Result updatePosition(String name, int id) {		
+		if (Rules.checkPositionName(name) && existsByName(name)!=true) {			
 			this.positionDao.updatePosition(name,id);
 			return new SuccessResult(Messages.updatedPosition);
 		}
 		else {
-			if (existsByName(name)) {
-				
+			if (existsByName(name)) {				
 				return new ErrorResult(Messages.errorRegisteredPosition);
 			}
 		}
@@ -84,6 +70,5 @@ public class PositionManager implements PositionService {
 	public Result deletePosition(Position position) {
 		this.positionDao.delete(position);
 		return new SuccessResult(Messages.deletedPosition);
-	}
-	
+	}	
 }

@@ -14,43 +14,34 @@ import hrmsproject.hrms.business.abstracts.JobSeekerService;
 import hrmsproject.hrms.core.utilities.result.concretes.DataResult;
 import hrmsproject.hrms.core.utilities.result.concretes.Result;
 import hrmsproject.hrms.entities.concretes.JobSeeker;
-import hrmsproject.hrms.entities.concretes.Position;
-
 
 @RestController
 @RequestMapping("/api/jobseekers/")
 public class JobSeekersController {
 	
-	JobSeekerService jobSeekerService;
-
+	private JobSeekerService jobSeekerService;
 	@Autowired
 	public JobSeekersController(JobSeekerService jobSeekerService) {
 		this.jobSeekerService = jobSeekerService;
-	}
-	
+	}	
 
 	@GetMapping("getall")
-	public DataResult<List<JobSeeker>> getAll() {
-		
+	public DataResult<List<JobSeeker>> getAll() {		
 		return this.jobSeekerService.getAll();
 	}
 	
-	@PostMapping("/add")
-	public Result add (@RequestBody JobSeeker jobSeeker){
-		
+	@PostMapping("add")
+	public Result add (@RequestBody JobSeeker jobSeeker){		
 		return this.jobSeekerService.add(jobSeeker);		
 	}
 	
 	@PostMapping("update")
-	public Result update(String mail, String password, String firstName, String lastName,@RequestBody LocalDate dateofBirth, int id) {
-		
+	public Result update(@RequestBody String mail, @RequestBody String password, @RequestBody String firstName, @RequestBody String lastName, @RequestBody LocalDate dateofBirth, @RequestBody int id) {
 		return this.jobSeekerService.updateJobSeeker(mail, password, firstName, lastName, dateofBirth, id);
 	}
 	
 	@PostMapping("delete")
-	public Result delete(JobSeeker jobSeeker) {
-		
+	public Result delete(@RequestBody JobSeeker jobSeeker) {		
 		return this.jobSeekerService.deleteJobSeeker(jobSeeker);
 	}
-
 }

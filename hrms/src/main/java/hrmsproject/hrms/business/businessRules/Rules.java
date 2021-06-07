@@ -1,30 +1,25 @@
 package hrmsproject.hrms.business.businessRules;
 
 import java.time.LocalDate;
-import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.springframework.data.jpa.repository.Query;
-
-import hrmsproject.hrms.entities.concretes.JobPosting;
-
 public class Rules {
 	
-	public static boolean checkFirstName(String firstName) {
-		
+	public static boolean checkFirstName(String firstName) {		
 		if (firstName.length()<2) {			
 			return false;
-		}else {
+		}
+		else {
 			return true;
 		}			
 	}
 	
-	public static boolean checkLastName(String lastName) {
-		
+	public static boolean checkLastName(String lastName) {		
 		if (lastName.length()<2) {			
 			return false;
-		}else {
+		}
+		else {
 			return true;
 		}			
 	}
@@ -34,80 +29,74 @@ public class Rules {
 		Pattern pattern = Pattern.compile(regex);
 		Matcher matcher = pattern.matcher(eMail);
 		
-		if (matcher.matches()) {
-			
-			return true;
-			
-		}else {
-			
+		if (matcher.matches()) {			
+			return true;			
+		}
+		else {			
 			return false;
 		}
 	}
 	
-	public static boolean checkPhone(String phone) {
-		
+	public static boolean checkPhone(String phone) {		
 		if (phone.length()<7) {			
 			return false;
-		}else {
+		}
+		else {
 			return true;
 		}			
 	}
 	
-	public static boolean checkNationalityId(String nationalityId) {
-		
+	public static boolean checkNationalityId(String nationalityId) {		
 		if (nationalityId.length()<11 || nationalityId.length()>11) {			
 			return false;
-		}else {
+		}
+		else {
 			return true;
 		}			
 	}
 	
-	public static boolean checkPassword(String password) {
-		
+	public static boolean checkPassword(String password) {		
 		if (password.length()<6) {			
 			return false;
-		}else {
+		}
+		else {
 			return true;
 		}			
 	}
 	
-	public static boolean checkCompanyName(String companyName) {
-		
+	public static boolean checkCompanyName(String companyName) {		
 		if (companyName.length()<2) {			
 			return false;
-		}else {
+		}
+		else {
 			return true;
 		}			
 	}
 	
-	public static boolean checkWebSite(String webSite) {
-		
+	public static boolean checkWebSite(String webSite) {		
 		if (webSite.length()<5) {			
 			return false;
-		}else {
+		}
+		else {
 			return true;
 		}			
 	}
 	
-	public static boolean checkDateOfBirth(LocalDate dateOfBirth) {
-		
+	public static boolean checkDateOfBirth(LocalDate dateOfBirth) {		
 		if (dateOfBirth == null) {			
 			return false;
-		}else {
+		}
+		else {
 			return true;
 		}			
 	}
 	
-	public static boolean checkPositionName(String positionName) {
-		
+	public static boolean checkPositionName(String positionName) {		
 		if (positionName.length()<2) {			
 			return false;
-		}else {
+		}
+		else {
 			return true;
 		}			
 	}
-	
-
-	
-
 }

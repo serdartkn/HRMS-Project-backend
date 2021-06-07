@@ -42,6 +42,5 @@ public class Messages {
 	public static String errorPositionName = "Position Name Must Be A Minimum Of 2 Characters";
 	public static String errorWebSite = "Incorrect Web Site";	
 	public static String errorDateOfBirth = "Incorrect Date";	
-	public static String errorInformation = "Error, Check Info";	
-
+	public static String errorInformation = "Error, Check Info";
 }

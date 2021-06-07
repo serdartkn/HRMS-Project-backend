@@ -13,42 +13,34 @@ import hrmsproject.hrms.business.abstracts.EmployeeService;
 import hrmsproject.hrms.core.utilities.result.concretes.DataResult;
 import hrmsproject.hrms.core.utilities.result.concretes.Result;
 import hrmsproject.hrms.entities.concretes.Employee;
-import hrmsproject.hrms.entities.concretes.Employer;
 
 @RestController
 @RequestMapping("/api/employees/")
 public class EmployeesController {
 	
 	private EmployeeService employeeService;
-
 	@Autowired
 	public EmployeesController(EmployeeService employeeService) {
 		this.employeeService = employeeService;
 	}
 
 	@PostMapping("add")
-	public Result add(@RequestBody Employee employee) {
-		
+	public Result add(@RequestBody Employee employee) {		
 		return this.employeeService.add(employee);
 	}
 
 	@GetMapping("getall")
-	public DataResult<List<Employee>> getAll() {
-		
+	public DataResult<List<Employee>> getAll() {		
 		return this.employeeService.getAll();
-
 	}
 	
 	@PostMapping("update")
-	public Result update(String mail, String password, String firstName, String lastName, int id) {
-		
+	public Result update(String mail, String password, String firstName, String lastName, int id) {		
 		return this.employeeService.updateEmployee(mail, password, firstName, lastName, id);
 	}
 	
 	@PostMapping("delete")
-	public Result delete(Employee employee) {
-		
+	public Result delete(Employee employee) {		
 		return this.employeeService.deleteEmployee(employee);
 	}
-
 }

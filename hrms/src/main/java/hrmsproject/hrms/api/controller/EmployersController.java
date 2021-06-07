@@ -1,6 +1,5 @@
 package hrmsproject.hrms.api.controller;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,41 +13,34 @@ import hrmsproject.hrms.business.abstracts.EmployerService;
 import hrmsproject.hrms.core.utilities.result.concretes.DataResult;
 import hrmsproject.hrms.core.utilities.result.concretes.Result;
 import hrmsproject.hrms.entities.concretes.Employer;
-import hrmsproject.hrms.entities.concretes.JobSeeker;
 
 @RestController
 @RequestMapping("/api/employers/")
 public class EmployersController {
 	
 	private EmployerService employersService;
-
 	@Autowired
 	public EmployersController(EmployerService employersService) {
 		this.employersService = employersService;
 	}
 
 	@PostMapping("add")
-	public Result add(@RequestBody Employer employer) {
-		
+	public Result add(@RequestBody Employer employer) {		
 		return this.employersService.add(employer);
 	}
 
 	@GetMapping("getall")
-	public DataResult<List<Employer>> getAll() {
-		
+	public DataResult<List<Employer>> getAll() {		
 		return this.employersService.getAll();
 	}
 	
 	@PostMapping("update")
-	public Result update(String mail, String password, String companyName, String webSite, String phone, int id) {
-		
+	public Result update(@RequestBody String mail, @RequestBody String password, @RequestBody String companyName, @RequestBody String webSite, @RequestBody String phone, @RequestBody int id) {
 		return this.employersService.updateEmployer(mail, password, companyName, webSite, phone, id);
 	}
 	
 	@PostMapping("delete")
-	public Result delete(Employer employer) {
-		
+	public Result delete(@RequestBody Employer employer) {		
 		return this.employersService.deleteEmployer(employer);
 	}
-
 }

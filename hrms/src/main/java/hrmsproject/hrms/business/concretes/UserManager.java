@@ -18,7 +18,6 @@ import hrmsproject.hrms.entities.concretes.User;
 public class UserManager implements UserService {
 	
 	private UserDao userDao;
-
 	@Autowired
 	public UserManager(UserDao userDao) {
 		this.userDao = userDao;
@@ -31,16 +30,12 @@ public class UserManager implements UserService {
 	}
 
 	@Override
-	public DataResult<List<User>> getAll() {
-		
+	public DataResult<List<User>> getAll() {		
 		return new SuccessDataResult<List<User>>(this.userDao.findAll(),Messages.listedUsers);
 	}
 
 	@Override
-	public Boolean existsByeMail(String eMail) {
-		
-		return this.userDao.existsByeMail(eMail);
-		
+	public Boolean existsByeMail(String eMail) {		
+		return this.userDao.existsByeMail(eMail);	
 	}
-
 }

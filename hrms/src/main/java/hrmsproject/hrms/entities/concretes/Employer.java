@@ -37,7 +37,4 @@ public class Employer extends User{
 	
 	@OneToMany(mappedBy = "employer", cascade = CascadeType.ALL)
 	private List<JobPosting> jobPostings;
-	
-	
-
 }

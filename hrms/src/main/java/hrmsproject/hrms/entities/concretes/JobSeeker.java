@@ -4,14 +4,12 @@ import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
 
 @Entity
 @Table(name="job_seekers")
@@ -34,6 +32,5 @@ public class JobSeeker extends User{
 	private LocalDate dateOfBirth;	
 
 	@Column(name="mail_is_verified")
-	private Boolean mailIsVerified = false;
-	
+	private Boolean mailIsVerified = false;	
 }

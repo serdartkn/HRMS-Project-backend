@@ -7,5 +7,4 @@ import hrmsproject.hrms.entities.concretes.User;
 public interface UserDao extends JpaRepository<User, InternalError>{	
 
 	Boolean existsByeMail(String eMail);
-
 }
