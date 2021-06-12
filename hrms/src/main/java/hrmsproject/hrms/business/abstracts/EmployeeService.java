@@ -1,18 +1,8 @@
 package hrmsproject.hrms.business.abstracts;
 
-import java.util.List;
-
-import hrmsproject.hrms.core.utilities.result.concretes.DataResult;
-import hrmsproject.hrms.core.utilities.result.concretes.Result;
+import hrmsproject.hrms.core.business.CrudOperationRepo;
 import hrmsproject.hrms.entities.concretes.Employee;
 
-public interface EmployeeService {
-
-	Result add(Employee employee);
+public interface EmployeeService extends CrudOperationRepo<Employee>{
 	
-	DataResult<List<Employee>> getAll();
-	
-	Result updateEmployee(String password, String email, String firstName, String lastName, int id);
-	
-	Result deleteEmployee(Employee employee);
 }

@@ -8,57 +8,57 @@ import java.util.Optional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.FieldError;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import hrmsproject.hrms.business.abstracts.JobSeekerService;
+import hrmsproject.hrms.business.abstracts.JobPositionService;
 import hrmsproject.hrms.core.utilities.result.concretes.DataResult;
 import hrmsproject.hrms.core.utilities.result.concretes.ErrorDataResult;
-import hrmsproject.hrms.core.utilities.result.concretes.Result;
-import hrmsproject.hrms.entities.concretes.JobSeeker;
+import hrmsproject.hrms.entities.concretes.JobPosition;
 
 @RestController
-@RequestMapping("/api/jobseekers/")
-public class JobSeekersController {
+@RequestMapping("/api/positions/")
+public class JobPositionsController{
 	
-	private JobSeekerService jobSeekerService;
+	private JobPositionService jobPositionService;	
 	@Autowired
-	public JobSeekersController(JobSeekerService jobSeekerService) {
-		this.jobSeekerService = jobSeekerService;
+	public JobPositionsController(JobPositionService jobPositionService) {
+		this.jobPositionService = jobPositionService;
 	}
 	
 	@PostMapping("add")
-	public ResponseEntity<?> add (@Valid @RequestBody JobSeeker jobSeeker){		
-		return ResponseEntity.ok(this.jobSeekerService.add(jobSeeker));		
+	public ResponseEntity<?> add(@Valid @RequestBody JobPosition jobPosition) {		
+		return ResponseEntity.ok(this.jobPositionService.add(jobPosition));
 	}
 	
 	@PostMapping("delete")
-	public ResponseEntity<?> delete(@RequestBody JobSeeker jobSeeker) {		
-		return ResponseEntity.ok(this.jobSeekerService.delete(jobSeeker));
+	public ResponseEntity<?> delete(@RequestBody JobPosition jobPosition) {		
+		return ResponseEntity.ok(this.jobPositionService.delete(jobPosition));
 	}
-
+	
+	@PostMapping("update")
+	public ResponseEntity<?> update(@Valid @RequestBody JobPosition jobPosition) {		
+		return ResponseEntity.ok(this.jobPositionService.update(jobPosition));
+	}
+	
 	@GetMapping("findAll")
-	public DataResult<List<JobSeeker>> findAll() {		
-		return this.jobSeekerService.findAll();
+	public DataResult<List<JobPosition>>findAll(){		
+		return this.jobPositionService.findAll();		
 	}
 	
 	@GetMapping("findById")
-	public DataResult<Optional<JobSeeker>> findById(int id) {		
-		return this.jobSeekerService.findById(id);
-	}
-	
-	@PostMapping("updateMailIsVerified")
-	public Result updateMailIsVerified(boolean mailIsVerified, @RequestBody int id) {		
-		return this.jobSeekerService.updateMailIsVerified(mailIsVerified, id);
+	public DataResult<Optional<JobPosition>>findById(@RequestParam int id){		
+		return this.jobPositionService.findById(id);		
 	}
 	
 	@ExceptionHandler(MethodArgumentNotValidException.class)
@@ -72,5 +72,5 @@ public class JobSeekersController {
 		ErrorDataResult<Object> errors = new ErrorDataResult<Object>(validationErrors, "Validation Errors");
 		return errors;
 	}
-
+	
 }

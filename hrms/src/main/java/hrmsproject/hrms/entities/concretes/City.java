@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -32,8 +34,11 @@ public class City {
 	private int id;
 	
 	@Column(name="city_name")
+	@NotBlank(message = "This Field Cannot Be Empty.")
+	@Size(min = 2, message = "First Name Must Be A Minimum Of 2 Characters")
 	private String name;
 	
 	@OneToMany(mappedBy = "city")
 	private List<JobPosting> jobPostings;
+	
 }

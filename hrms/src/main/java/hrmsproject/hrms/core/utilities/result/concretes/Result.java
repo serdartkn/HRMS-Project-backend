@@ -25,5 +25,6 @@ public class Result {
 	@Autowired
 	public String getMessage() {
 		return message;
-	}	
+	}
+	
 }

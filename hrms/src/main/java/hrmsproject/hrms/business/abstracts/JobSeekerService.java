@@ -1,22 +1,13 @@
 package hrmsproject.hrms.business.abstracts;
 
-import java.time.LocalDate;
-import java.util.List;
-
-import hrmsproject.hrms.core.utilities.result.concretes.DataResult;
+import hrmsproject.hrms.core.business.CrudOperationRepo;
 import hrmsproject.hrms.core.utilities.result.concretes.Result;
 import hrmsproject.hrms.entities.concretes.JobSeeker;
-import hrmsproject.hrms.entities.concretes.Position;
 
-public interface JobSeekerService {
+public interface JobSeekerService  extends CrudOperationRepo<JobSeeker>{
 	
-	Result add(JobSeeker jobSeeker);
+	Boolean existsByNationalityId(String nationalityId);
 	
-	DataResult<List<JobSeeker>> getAll();
+	Result 	updateMailIsVerified(boolean mailIsVerified, int id);
 	
-	Boolean existsByNationalityId(String eMail);
-	
-	Result updateJobSeeker(String mail, String password, String firstName, String lastName, LocalDate dateOfBirth, int id);
-	
-	Result deleteJobSeeker(JobSeeker jobSeeker);
 }

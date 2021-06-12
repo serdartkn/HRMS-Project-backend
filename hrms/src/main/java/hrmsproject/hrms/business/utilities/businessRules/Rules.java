@@ -1,10 +1,21 @@
-package hrmsproject.hrms.business.businessRules;
+package hrmsproject.hrms.business.utilities.businessRules;
 
 import java.time.LocalDate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Rules {
+	
+	public static Boolean checkCompanyMail(String webSite, String email) {		
+		
+		String[] site = webSite.split("www.");
+		String[] mail = email.split("@");
+		
+		if (site[1].equals(mail[1])) {
+			return true;
+		}
+		return false;		
+	}
 	
 	public static boolean checkFirstName(String firstName) {		
 		if (firstName.length()<2) {			

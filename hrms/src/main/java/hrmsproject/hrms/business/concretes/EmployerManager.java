@@ -1,14 +1,15 @@
 package hrmsproject.hrms.business.concretes;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import hrmsproject.hrms.business.abstracts.UserService;
 import hrmsproject.hrms.business.abstracts.EmployerService;
-import hrmsproject.hrms.business.businessRules.Rules;
 import hrmsproject.hrms.business.constants.Messages;
+import hrmsproject.hrms.business.utilities.businessRules.Rules;
 import hrmsproject.hrms.core.utilities.result.concretes.DataResult;
 import hrmsproject.hrms.core.utilities.result.concretes.ErrorResult;
 import hrmsproject.hrms.core.utilities.result.concretes.Result;
@@ -29,75 +30,77 @@ public class EmployerManager implements EmployerService{
 	}
 
 	@Override
-	public Result add(Employer employer) {		
-		if (Rules.checkMail(employer.getEMail()) && Rules.checkCompanyName(employer.getCompanyName()) && Rules.checkPassword(employer.getPassword()) && Rules.checkPhone(employer.getPhone()) && Rules.checkWebSite(employer.getWebSite())) {
-			if (userService.existsByeMail(employer.getEMail())!=true) {				
-				this.employerDao.save(employer);
-				return new SuccessResult(Messages.addedEmployer);
-			}
-			else {				
-				return new ErrorResult(Messages.errorRegisteredMail);				
-			}			
+	public Result add(Employer employer) {
+		if (userService.existsByEmail(employer.getEmail())!=true && Rules.checkCompanyMail(employer.getWebSite(), employer.getEmail())) {
+			this.employerDao.save(employer);
+			return new SuccessResult(Messages.addedEmployer);
 		}
-		else {			
-			if (Rules.checkMail(employer.getEMail())==false) {				
-				return new ErrorResult(Messages.errorMail);	
+		else {
+			if (userService.existsByEmail(employer.getEmail())) {
+				return new ErrorResult(Messages.errorRegisteredMail);					
 			}
-			else if (Rules.checkCompanyName(employer.getCompanyName())==false) {				
-				return new ErrorResult(Messages.errorCompanyName);	
-			}
-			else if (Rules.checkWebSite(employer.getWebSite())==false) {				
-				return new ErrorResult(Messages.errorWebSite);	
-			}
-			else if (Rules.checkPassword(employer.getPassword())==false) {				
-				return new ErrorResult(Messages.errorPassword);	
-			}
-			else if (Rules.checkPhone(employer.getPhone())==false) {				
-				return new ErrorResult(Messages.errorPhone);	
+			else if (!Rules.checkCompanyMail(employer.getWebSite(), employer.getEmail())) {
+				return new ErrorResult(Messages.errorCompanyMail);					
 			}
 		}
-		return new ErrorResult(Messages.errorInformation);
-	}	
+		return new ErrorResult(Messages.errorInformation);		
+	}
+	
+	@Override
+	public Result delete(Employer employer) {		
+		this.employerDao.delete(employer);
+		return new SuccessResult(Messages.updatedEmployer);		
+	}
+	
+	@Override
+	public Result update(Employer employer) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	@Override
+	public Result updateCompanyWebSiteAndEmail(Employer employer) {
+		if (!userService.existsByEmail(employer.getEmail()) && Rules.checkCompanyMail(employer.getWebSite(), employer.getEmail())) {
+		    this.employerDao.updateCompanyWebSiteAndEmail(employer.getEmail(), employer.getWebSite(), employer.getId());
+		    return new SuccessResult(Messages.updatedEmployer);
+			}
+			else {
+				if (userService.existsByEmail(employer.getEmail())) {
+					return new ErrorResult(Messages.errorRegisteredMail);					
+				}
+				else if (!Rules.checkCompanyMail(employer.getWebSite(), employer.getEmail())) {
+					return new ErrorResult(Messages.errorCompanyMail);					
+				}
+			}
+			return new ErrorResult(Messages.errorInformation);
+	}
 
 	@Override
-	public DataResult<List<Employer>> getAll() {		
+	public Result updateCompanyNameAndPhone(Employer employer) {
+		    this.employerDao.updateCompanyNameAndPhone(employer.getCompanyName(), employer.getPhone(), employer.getId());
+		    return new SuccessResult(Messages.updatedEmployer);
+	}
+	
+	@Override
+	public Result updateMailIsVerified(boolean mailIsVerified, int id) {
+    this.employerDao.updateMailIsVerified(mailIsVerified, id);
+    return new SuccessResult(Messages.updatedEmployer);
+	}
+
+	@Override
+	public Result updateMngIsVerified(boolean mngIsVerified, int id) {
+	    this.employerDao.updateMngIsVerified(mngIsVerified, id);
+	    return new SuccessResult(Messages.updatedEmployer);
+	}
+
+	@Override
+	public DataResult<List<Employer>> findAll() {
 		return new SuccessDataResult<List<Employer>>(this.employerDao.findAll(), Messages.listedEmployers);
 	}
 
 	@Override
-	public Result updateEmployer(String mail, String password, String companyName, String webSite, String phone, int id) {
-		if (Rules.checkMail(mail) && Rules.checkCompanyName(companyName) && Rules.checkPassword(password) && Rules.checkPhone(phone) && Rules.checkWebSite(webSite)) {			
-			if (userService.existsByeMail(mail)!=true) {				
-				this.employerDao.updateEmployer(mail, password, companyName, webSite, phone, id);
-				return new SuccessResult(Messages.updatedEmployer);
-			}
-			else {				
-				return new ErrorResult(Messages.errorRegisteredMail);				
-			}			
-		}
-		else {			
-			if (Rules.checkMail(mail)==false) {				
-				return new ErrorResult(Messages.errorMail);	
-			}
-			else if (Rules.checkCompanyName(companyName)==false) {				
-				return new ErrorResult(Messages.errorCompanyName);	
-			}
-			else if (Rules.checkWebSite(webSite)==false) {				
-				return new ErrorResult(Messages.errorWebSite);	
-			}
-			else if (Rules.checkPassword(password)==false) {				
-				return new ErrorResult(Messages.errorPassword);	
-			}
-			else if (Rules.checkPhone(phone)==false) {				
-				return new ErrorResult(Messages.errorPhone);	
-			}
-		}
-		return new ErrorResult(Messages.errorInformation);
+	public DataResult<Optional<Employer>> findById(int id) {
+		return new SuccessDataResult<Optional<Employer>>(this.employerDao.findById(id), Messages.listedEmployers);
 	}
-
-	@Override
-	public Result deleteEmployer(Employer employer) {		
-		this.employerDao.delete(employer);
-		return new SuccessResult(Messages.updatedEmployer);		
-	}
+	
 }
